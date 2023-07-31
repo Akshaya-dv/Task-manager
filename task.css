@@ -1,0 +1,244 @@
+body{
+    background-color: white;
+
+}
+.main{
+    display: flex;
+    flex-direction: column;
+    /*flex-wrap: wrap; 
+    align-items: center;*/
+    justify-content: center; 
+    width: 100%;
+}
+
+h1{
+    color:rgb(40, 27, 230);
+}
+
+.lable{
+    font-size: large;
+   font-style:bold;
+}
+.input{
+    height: 25px;
+      width: 270px;
+}
+.searchinput{
+    height: 25px;
+
+}
+.select{
+    height: 29px;
+    width:280px;
+}
+.searchselect{
+    height: 29px;
+    width:200px;
+}
+.inputdate{
+    height: 25px;
+    width: 270px; ;
+  
+}
+
+
+
+
+.addTaskButton{
+    
+        background-color:rgb(40, 27, 230);
+        color: aliceblue;
+        width: 130px;
+        height: 30px;
+        font-size: medium;
+        margin-top:30px; 
+        border-color:rgb(40, 27, 230) ;
+        border-radius: 5px;
+        margin-left: auto;
+    
+}
+.addTaskButton{
+    display: none;
+}
+.saveTaskButton{
+    background-color: blue;
+    color: white;
+    border:none;
+    width: 130px;
+    height: 30px;
+    font-size: medium;
+    border-radius: 5px;
+    align-items: center;
+}
+.searchButton{
+    background-color: purple;
+    color: white;
+    border:none;
+    margin-top: 40px;
+    width: 130px;
+    height: 30px;
+    font-size: medium;
+    border-radius: 5px;
+    align-items: center;
+
+}
+.cancelsearchButton{
+    display: none;
+    background-color:red;
+    color: white;
+    border:none;
+    width: 130px;
+    height: 30px;
+    font-size: medium;
+    border-radius: 5px;
+    align-items: center;
+
+}
+
+.tablesearch{
+    background-color: antiquewhite;
+    border-radius: 5px;
+}
+
+.deleteTableButton{
+    border-radius: 20px;
+    z-index: 1;
+    color: white;
+    background-color: red;
+    margin-left: auto;
+    border-color: red;
+
+}
+.addsubtaskTableButton{
+    border-radius: 20px;
+    z-index: 1;
+    color: white;
+    background-color:blue;
+    margin-left: auto;
+    border-color:blue;
+
+}
+.editTableButton{
+    border-radius: 20px;
+    z-index: 1;
+    color: white;
+    background-color:purple;
+    margin-left: auto;
+    border-color:purple;
+}
+.tablediv{
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    background-color: aliceblue;
+}
+.title{
+    display: flex;
+    flex-direction: row;
+    font-size: x-large;
+    color:purple;
+ 
+}
+.displayTableButton{
+    margin-left: auto;
+}
+table,th,td{
+    border: 1px solid gray;
+    border-radius: 3px;
+}
+tr:nth-child(even) {
+    background-color: #c4def363;
+}
+tr:nth-child(odd) {
+    background-color: #979cf87e;
+}
+th{
+    background-color:purple;
+    height: 30px;
+    color:aliceblue;
+}
+table{
+    width: 100%;
+    margin-bottom: 70px;
+}
+
+.addNewTask-popup{
+ 
+    display:block;
+    position: relative;
+}
+.addNewTask-content{
+  
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 30%;
+    position: relative;
+    background-color: #fff;
+    margin: auto;
+    padding: 2rem;
+    border-radius: 0.25rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    top: 26px;
+}
+.addsubNewTask-popup{
+
+ 
+    display:none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4);
+    
+}
+.cancelbutton{
+    border-radius: 40px;
+    z-index: 1;
+    background-color: red;
+    margin-left: auto;
+    border-color: red;
+}
+.heading{
+    display: flex;
+}
+
+
+span{
+    height: 25px;
+      /* width: 270px; */
+}
+#editsubtask{
+    display: none;
+}
+#addsubtask{
+    display: inline;
+}
+.parenttask{display:none}
+.idclass1{
+    margin:0px;
+}
+.searchinput{
+    display:none;
+}
+
+
+
+
+
+
+@media all and (max-width:700px)
+{
+    .main{
+        flex-direction: column;
+    }
+    .addNewTask-content{
+        width: 70%;
+    }
+    .searchdiv{
+        display:flex;
+        flex-direction: column;
+    }
+}

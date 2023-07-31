@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task-manager</title>
+    <link rel="stylesheet" href="task.css">
+</head>
+
+<body>
+    <script src="task.js"></script>
+    <div class="main">
+        <div class="heading">
+            <center>
+                <h1>Task Manager</h1>
+            </center>
+            <button id="addNewTaskButton" class="addTaskButton" onclick="addNewTask()">Add New Task</button>
+        </div>
+
+
+        <!-- Add new task popup-->
+        <div id="addNewTaskpop" class="addNewTask-popup">
+            <div class="addNewTask-content">
+                <button class="cancelbutton" onclick="cancelTaskfun()">&#x2716;</button>
+                <center>
+                    <h1>Add New Task</h1>
+                </center>
+                <div class="idclass1">
+                    <label class="lable">Task*</label><br>
+                    <input class="input" id="task" type="text" placeholder="Task Name" required><br>
+                    <span class="error" id=""></span><br>
+                </div>
+                <button class="saveTaskButton" onclick="addTaskfun()">ADD</button><br>
+            </div>
+        </div>
+
+
+        <!--Add new task popup -->
+        <div id="addsubtaskpopup" class="addsubNewTask-popup">
+            <div class="addNewTask-content">
+                <button class="cancelbutton" onclick="cancelsubTaskfun()">&#x2716;</button>
+                <center>
+                    <h1>Add New Sub-Task</h1>
+                </center>
+                <div class="idclass1">
+                    <!-- <span id="parenttask" class="parenttask"></span>
+                    <span id="subtask" class="parenttask"></span> -->
+                    <label class="lable">Sub-Task*</label><br>
+                    <input class="input" id="sub-task" type="text" placeholder="Sub-Task Name" required><br><br>
+                    <label class="lable">Start date*</label><br>
+                    <input class="inputdate" id="sdate" type="date" placeholder="DD/MM/YYYY" required onchange="updateedate()"><br><br>
+                    <label class="lable">End date*</label><br>
+                    <input class="inputdate" id="edate" type="date" placeholder="DD/MM/YYYY" required onchange="updatestatus()"><br><br>
+                    <label class="lable">Status</label><br>
+                    <select name="status" class="select" id="status" >
+                        <option value="Completed">Completed</option><br>
+                        <option value="Due-passed">Due-passed</option><br>
+                        <option value="Inprogress">Inprogress</option><br>
+                        <option value="Cancelled">Cancelled</option><br>
+                    </select>
+                  <br><br>
+                </div>
+                <button class="saveTaskButton" id="addsubtask" onclick="addsubtask()">ADD</button><br>
+                <button class="saveTaskButton" id="editsubtask" onclick="saveeditsubtask()">Save</button>
+            </div>
+        </div>
+
+
+        <!--search -->
+        <div class="searchdiv" id="searchdiv">
+            <select name="searchby" class="select" id="searchby" onclick="searchinput()" >
+                <option value="" disabled selected>Search by</option>
+                <option value="task">Task Name</option><br>
+                <option value="sdate">Start Date</option><br>
+                <option value="edate">End Date</option><br>
+                <option value="status">Status</option><br>
+            </select> 
+            <div class="searchinput" id="tasksearch"> 
+                 <label class="lable">Enter Task Name</label>
+                <input class="input" id="searchtask" type="text" placeholder="Task Name" required>
+            </div>
+            <div class="searchinput" id="sdatesearch">
+                <label class="lable">Enter Start date</label>
+                <input class="inputdate" id="searchsdate" type="date" placeholder="DD/MM/YYYY" required >
+            </div>
+            <div class="searchinput" id="edatesearch">
+                <label class="lable">End date*</label>
+                <input  class="inputdate" id="searchedate" type="date" placeholder="DD/MM/YYYY" required>
+            </div>
+            <div class="searchinput" id="statussearch">
+                <label class="lable">Status</label>
+                <select name="status" class="select" id="searchstatus" >
+                    <option value="Completed">Completed</option><br>
+                    <option value="Due-passed">Due-passed</option><br>
+                    <option value="Inprogress">Inprogress</option><br>
+                    <option value="Cancelled">Cancelled</option><br>
+                </select>
+            </div>
+            <button id="search" class="searchButton" onclick="search()">Search</button>
+            <button id="cancelsearch" class="cancelsearchButton" onclick="cancelsearch()">Cancel</button>
+        <div class="tablesearch" id="searchtable"></div>
+        </div>
+
+
+        <!--To display table here-->
+        <div id="tablediv" class="tablediv">
+            
+        </div>
+    </div>
+
+</body>
+
+</html>
