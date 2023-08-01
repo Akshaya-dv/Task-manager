@@ -64,8 +64,12 @@ function cancelTaskfun() {
 
 
 function addTaskfun() {
-    numtask++;
+  
     var task = document.getElementById('task').value;
+    if(!task){
+        alert("Please enter the Task name" );
+    }
+    else{
     newtask = {
         taskid: numtask,
         task: task,
@@ -84,7 +88,7 @@ function addTaskfun() {
     document.getElementById("addNewTaskpop").style.display = "none";
     document.getElementById('addNewTaskButton').style.display = "block";
     displayTask();
-
+    }
 }
 
 function addsubtaskfun(taskid) {
