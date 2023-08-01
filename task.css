@@ -5,8 +5,6 @@ body{
 .main{
     display: flex;
     flex-direction: column;
-    /*flex-wrap: wrap; 
-    align-items: center;*/
     justify-content: center; 
     width: 100%;
 }
@@ -25,7 +23,6 @@ h1{
 }
 .searchinput{
     height: 25px;
-
 }
 .select{
     height: 29px;
@@ -41,9 +38,6 @@ h1{
   
 }
 
-
-
-
 .addTaskButton{
     
         background-color:rgb(40, 27, 230);
@@ -57,9 +51,7 @@ h1{
         margin-left: auto;
     
 }
-.addTaskButton{
-    display: none;
-}
+
 .saveTaskButton{
     background-color: blue;
     color: white;
@@ -95,46 +87,64 @@ h1{
 
 }
 
-.tablesearch{
-    background-color:rgb(223, 253, 255);
-    border-radius: 5px;
-}
-
 .deleteTableButton{
-    border-radius: 20px;
+    border-radius: 6px;
     z-index: 1;
     color: white;
+    height: 25px;
+    width: 100px;
     background-color: red;
-    margin-left: auto;
+    
+    border-color: red;
+
+}
+.deletetitleTableButton{
+    border-radius: 6px;
+    z-index: 1;
+    color: white;
+    height: 30px;
+    width: 150px;
+    background-color: red;
+    
     border-color: red;
 
 }
 .addsubtaskTableButton{
-    border-radius: 20px;
+    border-radius: 6px;
     z-index: 1;
+    height: 30px;
+    width: 150px;
     color: white;
     background-color:blue;
-    margin-left: auto;
+
     border-color:blue;
 
 }
 .editTableButton{
-    border-radius: 20px;
+    border-radius: 6px;
     z-index: 1;
+    height: 25px;
+    width: 100px;
     color: white;
     background-color:purple;
-    margin-left: auto;
     border-color:purple;
 }
 .tablediv{
     margin-top: 40px;
     display: flex;
     flex-direction: column;
-    background-color: aliceblue;
+    background-color: rgb(243, 212, 217);
 }
+
+.tablesearch{
+    background-color:rgb(223, 253, 255);
+    border-radius: 5px;
+}
+
 .title{
     display: flex;
     flex-direction: row;
+
     font-size: x-large;
     color:purple;
  
@@ -145,6 +155,7 @@ h1{
 table,th,td{
     border: 1px solid gray;
     border-radius: 3px;
+    text-align: center;
 }
 tr:nth-child(even) {
     background-color: #c4def363;
@@ -164,7 +175,7 @@ table{
 
 .addNewTask-popup{
  
-    display:block;
+    display:none;
     position: relative;
 }
 .addNewTask-content{
@@ -176,14 +187,12 @@ table{
     position: relative;
     background-color: #fff;
     margin: auto;
-    padding: 2rem;
-    border-radius: 0.25rem;
+    padding: 30px;
+    border-radius: 7px;
     box-shadow: 0 4px 20px rgba(0,0,0,0.4);
     top: 26px;
 }
 .addsubNewTask-popup{
-
- 
     display:none;
     position: fixed;
     z-index: 1;
@@ -208,7 +217,7 @@ table{
 
 span{
     height: 25px;
-      /* width: 270px; */
+    margin-bottom: 20px;
 }
 #editsubtask{
     display: none;

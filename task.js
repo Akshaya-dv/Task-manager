@@ -23,10 +23,10 @@ function updateedate() {
 }
 
 function updatestatus() {
-    const sdate = document.getElementById('sdate').value;
+
     const currentDate = new Date().toISOString().slice(0, 10);
     const edate = document.getElementById('edate').value;
-    if (sdate<edate){
+  
     //console.log(edate,currentDate);
     //console.log(edate<currentDate);
     const Inprogress = document.querySelector('#status option[value="Inprogress"]');
@@ -42,10 +42,6 @@ function updatestatus() {
         document.getElementById("status").value = "";
         Inprogress.disabled = false;
         Duepassed.disabled = true;
-    }}
-    else{
-        alert("The task End date should be after the start date");
-        document.getElementById('edate').value=" ";
     }
 
 }
@@ -68,7 +64,7 @@ function addTaskfun() {
     }
     else{
         numtask++
-    newtask = {
+        newtask = {
         taskid: numtask,
         task: task,
         sub: []
@@ -76,23 +72,29 @@ function addTaskfun() {
     if (arrtasks.some(item => item.task === task)) {
         if (confirm(`The Task "${task}" is already present do you still want to add it again ?`)) {
             arrtasks.push(newtask);
+            document.getElementById('task').value = "";
+            document.getElementById("addNewTaskpop").style.display = "none";
+            document.getElementById('addNewTaskButton').style.display = "block";
+            displayTask();
         }
-        else { }
+        else {
+            document.getElementById('task').value="";
+         }
     }
     else {
         arrtasks.push(newtask);
+        document.getElementById('task').value = "";
+        document.getElementById("addNewTaskpop").style.display = "none";
+        document.getElementById('addNewTaskButton').style.display = "block";
+        displayTask();
     }
-    document.getElementById('task').value = "";
-    document.getElementById("addNewTaskpop").style.display = "none";
-    document.getElementById('addNewTaskButton').style.display = "block";
-    displayTask();
+   
     }
 }
 
 function addsubtaskfun(taskid) {
     document.getElementById('addsubtaskpopup').style.display = "block";
     taskidvar=taskid;
-
 }
 
 function addsubtask() {
@@ -126,13 +128,12 @@ function addsubtask() {
 function editsubtask(taskid, subindex) {
     taskidvar=taskid;
     subindexvar=subindex;
+
     document.getElementById('addsubtaskpopup').style.display = "block";
+    document.getElementById("titlepop").innerHTML=`<h1>Edit</h1>`
     document.getElementById('addsubtask').style.display = 'none';
     document.getElementById('editsubtask').style.display = 'inline';
-    //document.getElementById('parenttask').value = taskid;
-    //document.getElementById('subtask').value = subindex;
     const index = arrtasks.findIndex(tasks => tasks.taskid == taskid);
-    // const subindex=arrtasks[index].sub.findIndex(stask=> stask.sid==sid);
     document.getElementById('sub-task').value = arrtasks[index].sub[subindex].stask;
     document.getElementById('sdate').value = arrtasks[index].sub[subindex].sdate;
     document.getElementById('edate').value = arrtasks[index].sub[subindex].edate;
@@ -143,15 +144,12 @@ function editsubtask(taskid, subindex) {
 function saveeditsubtask() {
     const taskid=taskidvar;
     const subindex=subindexvar;
-    //const taskid = document.getElementById('parenttask').value;
-    //const subindex = document.getElementById('subtask').value;
     const subtask = document.getElementById('sub-task').value;
     const sdate = document.getElementById('sdate').value;
     const edate = document.getElementById('edate').value;
     const status = document.getElementById('status').value;
 
     const index = arrtasks.findIndex(task => task.taskid == taskid);
-    // const subindex=arrtasks[index].sub.findIndex(stask=> stask.sid==sid);
     arrtasks[index].sub[subindex].stask = subtask;
     arrtasks[index].sub[subindex].sdate = sdate;
     arrtasks[index].sub[subindex].edate = edate;
@@ -161,6 +159,7 @@ function saveeditsubtask() {
     document.getElementById('editsubtask').style.display = 'none';
     document.getElementById('addsubtaskpopup').style.display = "none";
     displayTask();
+    document.getElementById("titlepop").innerHTML=`<h1>Add New Sub-Task</h1>`
     document.getElementById('sub-task').value = '';
     document.getElementById('sdate').value = '';
     document.getElementById('edate').value = '';
@@ -175,7 +174,6 @@ function deletetask(taskid) {
 
 function deletesubtask(taskid, subindex) {
     const index = arrtasks.findIndex(tasks => tasks.taskid == taskid);
-    // const subindex=arrtasks[index].sub.findIndex(stask=> stask.sid==sid);
     arrtasks[index].sub.splice(subindex, 1);
     displayTask();
 }
@@ -183,13 +181,13 @@ function deletesubtask(taskid, subindex) {
 function displayTask() {
     const divtable = document.getElementById('tablediv');
     divtable.innerHTML = " ";
-    divtable.innerHTML = `<center><h2>Task List</h2></center>`
+    divtable.innerHTML = `<h2>Task List</h2>`
     //console.log(arrtasks);
     arrtasks.forEach(tasks => {
         const parentspan = document.createElement('span');
-        parentspan.innerHTML = `<div class="title"><div>Task name: ${tasks.task}</div>
+        parentspan.innerHTML = `<div class="title"><div>Task Name  :  ${tasks.task}</div>
     <div class="displayTableButton">
-    <button class="deleteTableButton" onclick="deletetask(${tasks.taskid})">Delete</button>
+    <button class="deletetitleTableButton" onclick="deletetask(${tasks.taskid})">Delete</button>
     <button class="addsubtaskTableButton" onclick="addsubtaskfun(${tasks.taskid})">Add Subtask</button>
     </div>
     </div>`;
@@ -318,15 +316,14 @@ function displaysearchtask(task) {
     console.log(regex);
     const divtable = document.getElementById("searchtable");
     divtable.innerHTML = " ";
-    divtable.innerHTML = `<center><h2>Search Results</h2></center>`;
+    divtable.innerHTML = `<h2>Search Results</h2>`;
     //console.log(arrtasks);
     arrtasks.forEach(tasks => {
         if (regex.test(tasks.task)) {
             const parentspan = document.createElement('span');
             parentspan.innerHTML = `<div class="title">${tasks.task}
     <div class="displayTableButton">
-    <button class="deleteTableButton" onclick="deletetask(${tasks.taskid})">Delete</button>
-    <button class="editTableButton" onclick="edittask(${tasks.taskid})">Edit</button>
+    <button class="deletetitleTableButton" onclick="deletetask(${tasks.taskid})">Delete</button>
     <button class="addsubtaskTableButton" onclick="addsubtaskfun(${tasks.taskid})">Add Subtask</button>
     </div></div>`;
             const table = document.createElement('table');
@@ -357,7 +354,7 @@ function displaysearch(element,value) {
     var regex ;
     const divtable = document.getElementById('searchtable');
     divtable.innerHTML = " ";
-    divtable.innerHTML = `<center><h2>Search Results</h2></center>`;
+    divtable.innerHTML = `<h2>Search Results</h2>`;
     const table = document.createElement('table');
     const thead = document.createElement('thead');
     thead.innerHTML = `<tr><th>Main Task</th><th>Sub Task</th><th>Start Date</th><th>End Date</th><th>Status</th><th>Action</th></tr>`;
