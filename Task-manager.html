@@ -72,6 +72,7 @@
             <select name="searchby" class="select" id="searchby" onclick="searchinput()" >
                 <option value="" disabled selected>Search by</option>
                 <option value="task">Task Name</option><br>
+                <option value="subtask">Sub Task</option><br>
                 <option value="sdate">Start Date</option><br>
                 <option value="edate">End Date</option><br>
                 <option value="status">Status</option><br>
@@ -97,6 +98,10 @@
                     <option value="Cancelled">Cancelled</option><br>
                 </select>
             </div>
+            <div class="searchinput" id="subtasksearch"> 
+                <label class="lable">Enter Task Name</label>
+               <input class="input" id="searchsubtask" type="text" placeholder="Task Name" required>
+           </div>
             <button id="search" class="searchButton" onclick="search()">Search</button>
             <button id="cancelsearch" class="cancelsearchButton" onclick="cancelsearch()">Cancel</button>
         <div class="tablesearch" id="searchtable"></div>

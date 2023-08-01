@@ -55,17 +55,19 @@ function addNewTask() {
     document.getElementById("addNewTaskpop").style.display = "block";
 }
 
-
 function cancelTaskfun() {
     document.getElementById("addNewTaskpop").style.display = "none";
     document.getElementById('addNewTaskButton').style.display = "block";
 }
 
-
-
 function addTaskfun() {
-    numtask++;
+  
     var task = document.getElementById('task').value;
+    if(!task){
+        alert("Please enter the Task name" );
+    }
+    else{
+        numtask++
     newtask = {
         taskid: numtask,
         task: task,
@@ -84,7 +86,7 @@ function addTaskfun() {
     document.getElementById("addNewTaskpop").style.display = "none";
     document.getElementById('addNewTaskButton').style.display = "block";
     displayTask();
-
+    }
 }
 
 function addsubtaskfun(taskid) {
@@ -95,7 +97,7 @@ function addsubtaskfun(taskid) {
 
 function addsubtask() {
 
-    const taskid=taskidvar;
+    let taskid=taskidvar;
     validate = validation();
     if (validate == 0) {
 
@@ -170,13 +172,13 @@ function deletetask(taskid) {
     arrtasks.splice(index, 1);
     displayTask();
 }
+
 function deletesubtask(taskid, subindex) {
     const index = arrtasks.findIndex(tasks => tasks.taskid == taskid);
     // const subindex=arrtasks[index].sub.findIndex(stask=> stask.sid==sid);
     arrtasks[index].sub.splice(subindex, 1);
     displayTask();
 }
-
 
 function displayTask() {
     const divtable = document.getElementById('tablediv');
@@ -213,10 +215,6 @@ function displayTask() {
     })
 }
 
-
-
-
-
 function cancelsubTaskfun() {
     document.getElementById('addsubtaskpopup').style.display = "none";
 }
@@ -230,6 +228,7 @@ function searchinput() {
             document.getElementById("statussearch").style.display = "none";
             document.getElementById("edatesearch").style.display = "none";
             document.getElementById("sdatesearch").style.display = "none";
+            document.getElementById("subtasksearch").style.display = "none";
             break;
 
         case ('sdate'):
@@ -238,6 +237,7 @@ function searchinput() {
             document.getElementById("tasksearch").style.display = "none";
             document.getElementById("statussearch").style.display = "none";
             document.getElementById("edatesearch").style.display = "none";
+            document.getElementById("subtasksearch").style.display = "none";
             break;
 
         case ('edate'):
@@ -246,6 +246,7 @@ function searchinput() {
             document.getElementById("tasksearch").style.display = "none";
             document.getElementById("statussearch").style.display = "none";
             document.getElementById("sdatesearch").style.display = "none";
+            document.getElementById("subtasksearch").style.display = "none";
             break;
 
         case ('status'):
@@ -254,19 +255,29 @@ function searchinput() {
             document.getElementById("tasksearch").style.display = "none";
             document.getElementById("edatesearch").style.display = "none";
             document.getElementById("sdatesearch").style.display = "none";
+            document.getElementById("subtasksearch").style.display = "none";
             break;
-
+        
+        case('subtask'):
+        document.getElementById('cancelsearch').style.display = "inline";
+        document.getElementById("subtasksearch").style.display = "inline";
+        document.getElementById("statussearch").style.display = "none";
+        document.getElementById("tasksearch").style.display = "none";
+        document.getElementById("edatesearch").style.display = "none";
+        document.getElementById("sdatesearch").style.display = "none";
+        break;
     }
 }
+
 function cancelsearch() {
     document.getElementById('cancelsearch').style.display = "none";
     document.getElementById("statussearch").style.display = "none";
+    document.getElementById("subtasksearch").style.display = "none";
     document.getElementById("tasksearch").style.display = "none";
     document.getElementById("edatesearch").style.display = "none";
     document.getElementById("sdatesearch").style.display = "none";
     document.getElementById("searchtable").style.display = "none";
 }
-
 
 function search() {
     const searchby = document.getElementById('searchby').value;
@@ -277,19 +288,24 @@ function search() {
             displaysearchtask(ntask);
             break;
 
+        case ('subtask'):
+                const subtask = document.getElementById("searchsubtask").value;
+                displaysearch('subtask',subtask);
+                break;
+
         case ('sdate'):
             const sdate = document.getElementById("searchsdate").value;
-            displaysearchsdate(sdate);
+            displaysearch('sdate',sdate);
             break;
 
         case ('edate'):
             const edate = document.getElementById("searchedate").value;
-            displaysearchedate(edate);
+            displaysearch('edate',edate);
             break;
 
         case ('status'):
             const status = document.getElementById("searchstatus").value;
-            displaysearchstatus(status);
+            displaysearch('status',status);
             break;
 
         default: alert("Please select the Search-by option first ");
@@ -334,23 +350,38 @@ function displaysearchtask(task) {
 
 }
 
-function displaysearchsdate(sdate) {
+function displaysearch(element,value) {
+    let condition;
     const divtable = document.getElementById('searchtable');
     divtable.innerHTML = " ";
     divtable.innerHTML = `<center><h2>Search Results</h2></center>`;
+    const table = document.createElement('table');
+    const thead = document.createElement('thead');
+    thead.innerHTML = `<tr><th>Main Task</th><th>Sub Task</th><th>Start Date</th><th>End Date</th><th>Status</th><th>Action</th></tr>`;
     arrtasks.forEach(tasks => {
-        const parentspan = document.createElement('span');
-        parentspan.innerHTML = `<div class="title">${tasks.task}</div>`;
-        divtable.appendChild(parentspan);
-        const table = document.createElement('table');
-        const thead = document.createElement('thead');
-        thead.innerHTML = `<tr><th>Sub Task</th><th>Start Date</th><th>End Date</th><th>Status</th><th>Action</th></tr>`;
-        tasks.sub.forEach(subtasks => {
-            if (subtasks.sdate == sdate) {
 
+        tasks.sub.forEach(subtasks => {
+            switch(element){
+                case("subtask"):
+                    condition=(subtasks.stask== value);
+                    break;
+                case("sdate"):
+                    condition=(subtasks.sdate== value);
+                    break;
+                case("edate"):
+                    condition=(subtasks.edate== value);
+                    break;
+                case("status"):
+                    condition=(subtasks.status== value);
+                    break;
+                default:
+                    alert("something went wrong");
+                }
+            if (condition) {
+            
                 const tabelbody = document.createElement('tbody');
                 const trow = document.createElement('tr');
-                trow.innerHTML = `<td>${subtasks.stask}</td><td>${subtasks.sdate}</td><td>${subtasks.edate}</td><td>${subtasks.status}</td>
+                trow.innerHTML = `<td>${tasks.task}</td><td>${subtasks.stask}</td><td>${subtasks.sdate}</td><td>${subtasks.edate}</td><td>${subtasks.status}</td>
                 <td>  <button class="deleteTableButton" onclick="deletesubtask(${tasks.taskid},${subtasks.sid})">Delete</button>
                 <button class="editTableButton" onclick="editsubtask(${tasks.taskid},${subtasks.sid})">Edit</button></td>`;
                 if (subtasks.status == 'Completed') {
@@ -358,74 +389,12 @@ function displaysearchsdate(sdate) {
                 }
                 tabelbody.appendChild(trow);
                 table.appendChild(tabelbody);
+              
             }
         })
-        divtable.appendChild(table);
-        table.appendChild(thead);
-    })
-}
-
-function displaysearchedate(edate) {
-    const divtable = document.getElementById('searchtable');
-    divtable.innerHTML = " ";
-    divtable.innerHTML = `<center><h2>Search Results</h2></center>`;
-    arrtasks.forEach(tasks => {
-        const parentspan = document.createElement('span');
-        parentspan.innerHTML = `<div class="title">${tasks.task}</div>`;
-        const table = document.createElement('table');
-        const thead = document.createElement('thead');
-        thead.innerHTML = `<tr><th>Sub Task</th><th>Start Date</th><th>End Date</th><th>Status</th><th>Action</th></tr>`;
-        divtable.appendChild(parentspan);
-        tasks.sub.forEach(subtasks => {
-            if (subtasks.edate == edate) {
-                const tabelbody = document.createElement('tbody');
-                const trow = document.createElement('tr');
-                trow.innerHTML = `<td>${subtasks.stask}</td><td>${subtasks.sdate}</td><td>${subtasks.edate}</td><td>${subtasks.status}</td>
-                <td>  <button class="deleteTableButton" onclick="deletesubtask(${tasks.taskid},${subtasks.sid})">Delete</button>
-                <button class="editTableButton" onclick="editsubtask(${tasks.taskid},${subtasks.sid})">Edit</button></td>`;
-                if (subtasks.status == 'Completed') {
-                    trow.style.textDecoration = "line-through";
-                }
-                tabelbody.appendChild(trow);
-
-                table.appendChild(tabelbody);
-            }
-        })
-        divtable.appendChild(table);
-        table.appendChild(thead);
-    })
-
-}
-function displaysearchstatus(status) {
-    const divtable = document.getElementById('searchtable');
-    divtable.innerHTML = " ";
-    divtable.innerHTML = `<center><h2>Search Results</h2></center>`;
-    arrtasks.forEach(tasks => {
-        const parentspan = document.createElement('span');
-        parentspan.innerHTML = `<div class="title">Task Name: ${tasks.task}</div>`;
-        divtable.appendChild(parentspan);
-        const table = document.createElement('table');
-        const thead = document.createElement('thead');
-        thead.innerHTML = `<tr><th>Sub Task</th><th>Start Date</th><th>End Date</th><th>Status</th><th>Action</th></tr>`;
-        tasks.sub.forEach(subtasks => {
-            if (subtasks.status == status) {
-                const tabelbody = document.createElement('tbody');
-                const trow = document.createElement('tr');
-                trow.innerHTML = `<td>${subtasks.stask}</td><td>${subtasks.sdate}</td><td>${subtasks.edate}</td><td>${subtasks.status}</td>
-                <td>  <button class="deleteTableButton" onclick="deletesubtask(${tasks.taskid},${subtasks.sid})">Delete</button>
-                <button class="editTableButton" onclick="editsubtask(${tasks.taskid},${subtasks.sid})">Edit</button></td>`;
-                if (subtasks.status == 'Completed') {
-                    trow.style.textDecoration = "line-through";
-                }
-                tabelbody.appendChild(trow);
-
-                table.appendChild(tabelbody);
-            }
-        })
-        divtable.appendChild(table);
-        table.appendChild(thead);
-
-
-    })
+     
+    }) 
+     divtable.appendChild(table);
+    table.appendChild(thead);
 }
 
