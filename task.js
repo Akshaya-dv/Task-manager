@@ -314,12 +314,14 @@ function search() {
 }
 
 function displaysearchtask(task) {
+    var regex = new RegExp("^" +task, "i");
+    console.log(regex);
     const divtable = document.getElementById("searchtable");
     divtable.innerHTML = " ";
     divtable.innerHTML = `<center><h2>Search Results</h2></center>`;
     //console.log(arrtasks);
     arrtasks.forEach(tasks => {
-        if (tasks.task.toLowerCase() == task.toLowerCase()) {
+        if (regex.test(tasks.task)) {
             const parentspan = document.createElement('span');
             parentspan.innerHTML = `<div class="title">${tasks.task}
     <div class="displayTableButton">
@@ -352,6 +354,7 @@ function displaysearchtask(task) {
 
 function displaysearch(element,value) {
     let condition;
+    var regex ;
     const divtable = document.getElementById('searchtable');
     divtable.innerHTML = " ";
     divtable.innerHTML = `<center><h2>Search Results</h2></center>`;
@@ -363,7 +366,8 @@ function displaysearch(element,value) {
         tasks.sub.forEach(subtasks => {
             switch(element){
                 case("subtask"):
-                    condition=(subtasks.stask== value);
+                    regex = new RegExp("^" +value, "i");
+                    condition=(regex.test(subtasks.stask));
                     break;
                 case("sdate"):
                     condition=(subtasks.sdate== value);
